@@ -1,0 +1,10 @@
+services:
+  express-api:
+    build: .
+    container_name: lunar_ics
+    ports:
+      - "3000:3000" # Map port 3000 của máy host với port 3000 của container
+    environment:
+      - PORT=3000
+      - NODE_ENV=production
+    restart: unless-stopped # Tự động khởi động lại nếu bị lỗi hoặc server reboot

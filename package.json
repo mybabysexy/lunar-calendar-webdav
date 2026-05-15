@@ -1,0 +1,13 @@
+{
+  "name": "lunar-calendar-api",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "ical-generator": "^7.1.0",
+    "lunar-javascript": "^1.6.12"
+  }
+}
