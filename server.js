@@ -5,6 +5,10 @@ const { Lunar } = require('lunar-javascript');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+app.get('/health', (req, res) => {
+    res.json({ status: 'ok' });
+});
+
 app.get('/', (req, res) => {
     // Khởi tạo Lịch
     const calendar = ical({ 

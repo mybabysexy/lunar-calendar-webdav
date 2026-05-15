@@ -19,5 +19,9 @@ COPY . .
 # Mở port mà app sẽ chạy
 EXPOSE 3000
 
+# Kiểm tra sức khỏe container
+HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
+    CMD wget -qO- http://localhost:3000/health || exit 1
+
 # Lệnh khởi động app
 CMD ["npm", "start"]
