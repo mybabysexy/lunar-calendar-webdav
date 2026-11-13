@@ -7,6 +7,11 @@ const PORT = process.env.PORT || 3000;
 const TZ = 'Asia/Ho_Chi_Minh';
 const DAY_MS = 24 * 60 * 60 * 1000;
 
+// lunar-javascript trả Can Chi bằng chữ Hán (vd: 辛卯) => đổi sang tiếng Việt (Tân Mão)
+const CAN = { '甲': 'Giáp', '乙': 'Ất', '丙': 'Bính', '丁': 'Đinh', '戊': 'Mậu', '己': 'Kỷ', '庚': 'Canh', '辛': 'Tân', '壬': 'Nhâm', '癸': 'Quý' };
+const CHI = { '子': 'Tý', '丑': 'Sửu', '寅': 'Dần', '卯': 'Mão', '辰': 'Thìn', '巳': 'Tỵ', '午': 'Ngọ', '未': 'Mùi', '申': 'Thân', '酉': 'Dậu', '戌': 'Tuất', '亥': 'Hợi' };
+const canChiVi = (ganZhi) => `${CAN[ganZhi[0]] ?? ganZhi[0]} ${CHI[ganZhi[1]] ?? ganZhi[1]}`;
+
 // Lấy ngày hôm nay (năm/tháng/ngày) theo giờ Việt Nam, không phụ thuộc TZ của server/container
 function todayInVietnam() {
     const parts = new Intl.DateTimeFormat('en-CA', {
@@ -58,7 +63,7 @@ app.get('/', (req, res) => {
             end: nextDay,
             allDay: true,
             summary: `🌙 ${eventTitle}`,
-            description: `Ngày âm: ${lunarDate.getDay()}/${lunarDate.getMonth()}/${lunarDate.getYear()} \nCan Chi: Ngày ${lunarDate.getDayInGanZhi()}, tháng ${lunarDate.getMonthInGanZhi()}, năm ${lunarDate.getYearInGanZhi()}`
+            description: `Ngày âm: ${lunarDate.getDay()}/${lunarDate.getMonth()}/${lunarDate.getYear()} \nCan Chi: Ngày ${canChiVi(lunarDate.getDayInGanZhi())}, tháng ${canChiVi(lunarDate.getMonthInGanZhi())}, năm ${canChiVi(lunarDate.getYearInGanZhi())}`
         });
     }
 
